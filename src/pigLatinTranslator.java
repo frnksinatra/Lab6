@@ -6,64 +6,74 @@ import java.util.Scanner;
 
 
 public class pigLatinTranslator {
-
-
-
     public static void main(String[] args) {
 
-        //CHECKLIST
-        // 1. Display welcome message
+
+
+        wecomingStatement();
+
+        getTranslation();
+
+
+
+
+
+    }
+
+    private static void wecomingStatement() {
         System.out.println("Welcome to the Pig Latin Translator!");
-
-        // 2. Prompt user input
         System.out.println("Enter a word to be translated: ");
+    }
 
-        // 3. Get user input
+    private static  void getTranslation(){
         Scanner scan = new Scanner(System.in);
-        String userInput = scan.nextLine();
+        String userInput = scan.nextLine().toLowerCase();
+        StringBuffer translatedUserInput = new StringBuffer(userInput);
 
-        // 3.1 Validate user input
-
-        // 4. Translate user Input
-
-        // 4.1 Two different algorithms for consonants and vowels (methods?)
-        userInput = userInput.toLowerCase();
-
-        String result;
         if (isVowels(userInput)) {
-            result = piggifiedVowels(userInput);
+            translatedUserInput.append("way");
 
-        } else {    //consonant
-            result = piggifiedConsonants(userInput);
+        }else {
+            translatedUserInput = isConsonant(userInput);
+
         }
 
-        //5. Display result
-        System.out.println(userInput + " piggified is " /*+ piggifiedWord*/);
+        System.out.println(translatedUserInput);
+    }
 
-        //6. Prompt user to continue
-        System.out.println("Piggify some more words?(y/n)");
-
-        //7. Loop function
-
+    private static void loop () {
 
     }
 
-    private static String piggifiedConsonants(String userInput) {
-
-        return userInput;
-    }
-
-    private static String piggifiedVowels(String userInput) {
-
-        return userInput;
-    }
-
-    private static boolean isVowels(String userInput){
+    private static boolean isVowels(String userInput) {
         if (userInput.charAt(0) == 'a' || userInput.charAt(0) == 'e' || userInput.charAt(0) == 'i' ||
                 userInput.charAt(0) == 'o' || userInput.charAt(0) == 'u') {
             return true;
         }
-        
+
         return false;
     }
+
+    private static StringBuffer isConsonant (String userInput){
+        StringBuffer translatedConsonants = new StringBuffer(userInput);
+
+        for (int i = 0; i < userInput.length(); i++) {
+            if (userInput.charAt(i) == 'a' || userInput.charAt(i) == 'e' || userInput.charAt(i) == 'i' ||
+                    userInput.charAt(i) == 'o' || userInput.charAt(i) == 'u'){
+
+                translatedConsonants = translatedConsonants.append(translatedConsonants.subSequence(0,i) + ("ay"));
+                translatedConsonants.delete(0,i);
+                return translatedConsonants;
+
+            }
+        }
+
+        return translatedConsonants;
+    }
+
+
+
+
 }
+
+
